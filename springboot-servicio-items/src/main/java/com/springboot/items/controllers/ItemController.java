@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import com.springboot.items.model.Item;
 import com.springboot.items.model.Producto;
 import com.springboot.items.service.ItemService;
 
+@RefreshScope
 @RestController
 public class ItemController {
 	
