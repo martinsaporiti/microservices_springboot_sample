@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.springboot.productos.model.entity.Producto;
+import com.springboot.commons.model.Producto;
 import com.springboot.productos.repository.ProductoRepository;
 
 /**

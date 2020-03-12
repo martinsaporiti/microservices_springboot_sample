@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import com.springboot.commons.model.Producto;
 import com.springboot.items.clients.ProductoClienteRest;
 import com.springboot.items.model.Item;
-import com.springboot.items.model.Producto;
 
 
 @Service

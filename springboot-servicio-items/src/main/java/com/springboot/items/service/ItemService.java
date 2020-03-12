@@ -2,8 +2,8 @@ package com.springboot.items.service;
 
 import java.util.List;
 
+import com.springboot.commons.model.Producto;
 import com.springboot.items.model.Item;
-import com.springboot.items.model.Producto;
 
 public interface ItemService {
 
