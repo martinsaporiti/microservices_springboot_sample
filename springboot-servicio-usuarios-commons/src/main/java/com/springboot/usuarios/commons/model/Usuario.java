@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
 	@Column(unique = true, length = 100)
 	private String email;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="usuarios_roles", joinColumns = @JoinColumn(name="usuario_id"), 
 		inverseJoinColumns = @JoinColumn(name="role_id"), 
 		uniqueConstraints = { @UniqueConstraint(columnNames = {"usuario_id", "role_id"})})
