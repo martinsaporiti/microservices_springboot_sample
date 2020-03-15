@@ -15,7 +15,7 @@ import com.springboot.usuarios.commons.model.Usuario;
 public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Long>{
 	
 	@RestResource(path = "buscar-username")
-	public Usuario findByUsername(@Param("nombre") String username);
+	public Usuario findByUsername(@Param("username") String username);
 	
 	
 	// Otra alternativa al método anterior es:
