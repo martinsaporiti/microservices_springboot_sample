@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.commons.usuarios.model.Usuario;
 import com.springboot.servicio.oauth.clients.UsuarioFeignClient;
-import com.springboot.usuarios.commons.model.Usuario;
 
 @Service
 public class UsuarioService implements UserDetailsService, UsuarioDetailService {

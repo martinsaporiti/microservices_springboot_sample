@@ -2,7 +2,7 @@ package com.springboot.servicio.usuarios.repository;
 
 import java.util.List;
 
-import com.springboot.usuarios.commons.model.Usuario;
+import com.commons.usuarios.model.Usuario;
 
 
 public interface UsuarioServiceTest {

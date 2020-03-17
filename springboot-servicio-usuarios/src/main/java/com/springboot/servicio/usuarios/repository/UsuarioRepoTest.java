@@ -2,7 +2,7 @@ package com.springboot.servicio.usuarios.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.springboot.usuarios.commons.model.Usuario;
+import com.commons.usuarios.model.Usuario;
 
 
 public interface UsuarioRepoTest extends CrudRepository<Usuario, Long>{

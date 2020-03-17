@@ -1,6 +1,6 @@
 package com.springboot.servicio.oauth.services;
 
-import com.springboot.usuarios.commons.model.Usuario;
+import com.commons.usuarios.model.Usuario;
 
 public interface UsuarioDetailService {
 
