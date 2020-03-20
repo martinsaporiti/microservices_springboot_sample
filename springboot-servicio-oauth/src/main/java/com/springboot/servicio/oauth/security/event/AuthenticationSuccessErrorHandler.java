@@ -34,7 +34,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 		
 		// Validamos al cantidad de intentos previos, si es mayor a 0 => lo volvemos a 0.
 		 
-		if(usuario.getIntentos() == null && usuario.getIntentos() > 0) {
+		if(usuario.getIntentos() == null || usuario.getIntentos() > 0) {
 			usuario.setIntentos(0);
 			usuarioService.update(usuario, usuario.getId());
 		}

@@ -51,6 +51,8 @@ public class UsuarioService implements UserDetailsService, UsuarioDetailService 
 					true, 
 					authorities);
 		} catch (FeignException e) {
+			log.error(e.getMessage());
+			log.error(e.getCause().getMessage());
 			// Si el usuario no existe se levanta una excepción:
 			throw new UsernameNotFoundException("No se ha encontrado el usuario para authenticarse: " + username);
 		}
