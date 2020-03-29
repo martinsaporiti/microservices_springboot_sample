@@ -82,6 +82,9 @@ public class ItemController {
 		if(env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("dev")) {
 			json.put("autor.nombre", env.getProperty("configuracion.autor.nombre"));
 			json.put("autor.email", env.getProperty("configuracion.autor.email"));
+			json.put("eureka.url", env.getProperty("eureka.client.service-url.defaultZone"));
+		} else if(env.getActiveProfiles().length > 0 ) {
+			json.put("eureka.url", env.getProperty("eureka.client.service-url.defaultZone"));
 		}
 		
 		return new ResponseEntity<Map<String,String>>(json, HttpStatus.OK);

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.commons.usuarios.model.Usuario;
 import com.springboot.servicio.oauth.clients.UsuarioFeignClient;
 
+import brave.Tracer;
 import feign.FeignException;
 
 @Service
@@ -26,6 +27,9 @@ public class UsuarioService implements UserDetailsService, UsuarioDetailService 
 	
 	@Autowired
 	private UsuarioFeignClient client;
+	
+	@Autowired
+	private Tracer tracer;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,7 +46,10 @@ public class UsuarioService implements UserDetailsService, UsuarioDetailService 
 					.collect(Collectors.toList()); 
 			
 			// Se retorna el usuario:
-			log.info("Se authenticó el usuario: " + username);
+			
+			String mensaje = "Se authenticó el usuario: " + username;
+			log.info("\n" + mensaje);
+			tracer.currentSpan().tag("success.mensaje", mensaje);
 			return new User(usuario.getUsername(), 
 					usuario.getPassword(), 
 					usuario.getEnabled(), 
@@ -51,10 +58,16 @@ public class UsuarioService implements UserDetailsService, UsuarioDetailService 
 					true, 
 					authorities);
 		} catch (FeignException e) {
+			
 			log.error(e.getMessage());
 			log.error(e.getCause().getMessage());
+			
+			
+			String mensajeError = "No se ha encontrado el usuario para authenticarse: " + username;
+			tracer.currentSpan().tag("errors.mensaje", mensajeError + ":" + e.getMessage());
+			
 			// Si el usuario no existe se levanta una excepción:
-			throw new UsernameNotFoundException("No se ha encontrado el usuario para authenticarse: " + username);
+			throw new UsernameNotFoundException(mensajeError);
 		}
 
 	}

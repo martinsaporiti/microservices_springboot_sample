@@ -17,8 +17,8 @@ import com.commons.usuarios.model.Usuario;
 @Transactional
 public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Long>{
 	
-	@RestResource(path = "buscar-username")
-	public Usuario findByUsername(@Param("username") String username);
+//	@RestResource(path = "buscar-usxername")
+//	public Usuario findByUsername(@Param("username") String username);
 	
 	
 	// Otra alternativa al método anterior es:

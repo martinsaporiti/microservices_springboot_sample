@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.commons.usuarios.model.Usuario;
 import com.springboot.servicio.oauth.services.UsuarioDetailService;
 
+import brave.Tracer;
 import feign.FeignException;
 
 @Component
@@ -21,6 +22,9 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 	
 	@Autowired
 	private UsuarioDetailService usuarioService;
+	
+	@Autowired
+	private Tracer tracer;
 	
 	
 	@Override
@@ -44,9 +48,16 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 	@Override
 	public void publishAuthenticationFailure(AuthenticationException exception, Authentication authentication) {
 		
-		log.error("Error Login: " + exception.getMessage());
+		
+		String mensaje = "Error Login: " + exception.getMessage();
+		log.error(mensaje);
+		
 		
 		try {
+			
+			StringBuilder errors = new StringBuilder();
+			errors.append(mensaje);
+			
 			Usuario usuario = usuarioService.findByUsername(authentication.getName());
 			
 			if(usuario.getIntentos() == null) {
@@ -60,10 +71,19 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 					authentication.getName(), 
 					usuario.getIntentos()));
 			
+			errors.append(" - " + String.format("Intentos actuales del usuario %s : %d", 
+					authentication.getName(), 
+					usuario.getIntentos()));
+			
 			if(usuario.getIntentos() >= 3) {
+				
 				log.error(String.format("El usuario %s deshabilitado", authentication.getName()));
+				errors.append(" - " + String.format("El usuario %s deshabilitado", authentication.getName()));
+				
 				usuario.setEnabled(false);
 			}
+			
+			tracer.currentSpan().tag("erros.mensaje", errors.toString());
 			
 			// Actualizamos al usuario:
 			usuarioService.update(usuario, usuario.getId());
